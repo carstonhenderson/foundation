@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
+import View, { ViewProps } from './view'
 
 interface InsetProps {
 	children: ReactNode
@@ -13,7 +14,7 @@ interface InsetProps {
  * @param {string} [className] - additional classes to give to the containing div element.
  * @param {string} space - the amount of space to inset.
  */
-let Inset = ({ children, className = '', horizontal, space = 'md' }: InsetProps): ReactElement => {
+let Inset = ({ children, className = '', horizontal, space = 'md', ...rest }: InsetProps & ViewProps): ReactElement => {
 	let paddingClasses = {
 		xs: horizontal ? 'px-1' : 'p-1',
 		sm: horizontal ? 'px-2' : 'p-2',
@@ -25,7 +26,11 @@ let Inset = ({ children, className = '', horizontal, space = 'md' }: InsetProps)
 		base: horizontal ? 'w-full max-w-screen-xl mx-auto px-4 md:px-8' : 'w-full max-w-screen-xl mx-auto p-4 md:p-8'
 	}
 
-	return <div className={`${paddingClasses[space]} ${className}`}>{children}</div>
+	return (
+		<View {...rest}>
+			<div className={`${paddingClasses[space]} ${className}`}>{children}</div>
+		</View>
+	)
 }
 
 export default Inset

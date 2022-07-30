@@ -9,12 +9,14 @@ import Heading from '../../components/heading'
 import Text from '../../components/text'
 import Button from '../../components/button'
 import Divider from '../../components/divider'
-import cheersImage from '../../assets/cheers.png'
+import halftoneBg from '../../assets/halftone-bg.jpg'
+import { spacing } from '../../types'
 
 let Layout = () => {
+	console.log(spacing)
 	return (
-		<Base>
-			<Content>
+		<Inset className="w-full dark:bg-gradient-to-br dark:from-slate-900 dark:to-slate-800">
+			<Stack vertical maxWidth="screen-xl" space="sm" bg="red-500 md:red-400">
 				<Heading size="3xl" spaceBelow="lg">
 					Layout Components
 				</Heading>
@@ -28,7 +30,7 @@ let Layout = () => {
 					Props
 				</Heading>
 
-				<Stack vertical as="ul" space="sm" spaceBelow="md" bg={cheersImage}>
+				<Stack vertical as="ul" space="sm" spaceBelow="md">
 					<li className="flex">
 						<Stack horizontal space="sm">
 							<code className="bg-neutral-700 px-2 py-1 rounded font-mono text-white text-sm">spaceAbove?</code>
@@ -468,7 +470,7 @@ let Layout = () => {
 
 				<Space vertical size="sm" />
 
-				<Content withBackground={cheersImage} className="mobile:bg-none bg-black text-white rounded shadow">
+				<Inset bg={halftoneBg} rounded>
 					<Stack horizontal fill space="none">
 						<Stack vertical space="lg" align="start">
 							<Heading level="2" size="3xl" color="white">
@@ -494,9 +496,9 @@ let Layout = () => {
 
 						<Space horizontal className="hidden md:block" />
 					</Stack>
-				</Content>
-			</Content>
-		</Base>
+				</Inset>
+			</Stack>
+		</Inset>
 	)
 }
 

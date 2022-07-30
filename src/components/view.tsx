@@ -11,6 +11,8 @@ export interface ViewProps {
 	spaceLeft?: Sizes
 	spaceRight?: Sizes
 	bg?: (string & {}) | 'white' | 'black' | 'green' | 'blue' | 'purple' | 'none'
+	rounded?: boolean
+	maxWidth?: 'screen-md' | 'screen-lg' | 'screen-xl' | 'none'
 }
 
 /**
@@ -28,7 +30,9 @@ let View: FC<InternalProps & ViewProps> = ({
 	spaceBelow = 'none',
 	spaceLeft = 'none',
 	spaceRight = 'none',
-	bg = 'none'
+	bg = 'none',
+	rounded = false,
+	maxWidth = 'none'
 }): ReactElement => {
 	let spaceAboveClasses = {
 		none: '',
@@ -58,6 +62,13 @@ let View: FC<InternalProps & ViewProps> = ({
 		lg: 'mr-8'
 	}
 
+	let maxWidthClasses = {
+		'screen-md': 'mx-auto max-w-screen-md',
+		'screen-lg': 'mx-auto max-w-screen-lg',
+		'screen-xl': 'mx-auto max-w-screen-xl',
+		none: ''
+	}
+
 	let bgClasses: Record<string, string> = {
 		none: '',
 		white: 'bg-white',
@@ -66,6 +77,8 @@ let View: FC<InternalProps & ViewProps> = ({
 		blue: 'bg-blue-500',
 		purple: 'bg-purple-500'
 	}
+
+	let roundedClass = rounded ? 'rounded' : ''
 
 	let spaceClasses = `${spaceAboveClasses[spaceAbove]} ${spaceBelowClasses[spaceBelow]} ${spaceLeftClasses[spaceLeft]} ${spaceRightClasses[spaceRight]}`
 
@@ -82,7 +95,9 @@ let View: FC<InternalProps & ViewProps> = ({
 		return cloneElement(children, {
 			...children.props,
 			...(bgIsImage && { style: bgImageCSSProp }),
-			className: `${children.props.className || ''} ${spaceClasses} ${bgIsImage ? bgImageClass : bgClasses[bg]}`
+			className: `${children.props.className || ''} ${spaceClasses} ${bgIsImage ? `${bgImageClass} bg-cover` : bgClasses[bg]} ${roundedClass} ${
+				maxWidthClasses[maxWidth]
+			}`
 		})
 	} else {
 		return <></>
